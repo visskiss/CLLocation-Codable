@@ -17,22 +17,25 @@ public struct CLLocationWrapper: Codable, Equatable {
         let speed = try container.decode(CLLocationSpeed.self, forKey: .speed)
         let course = try container.decode(CLLocationDirection.self, forKey: .course)
         let timestamp = try container.decode(Date.self, forKey: .timestamp)
+        let courseAccuracy = try container.decode(CLLocationDirectionAccuracy.self, forKey: .courseAccuracy)
+        let speedAccuracy = try container.decode(CLLocationSpeedAccuracy.self, forKey: .speedAccuracy)
 
-        var location = CLLocation(coordinate: coordinateWrapper.cooridnate,
-                                  altitude: altitude,
-                                  horizontalAccuracy: horizontalAccuracy,
-                                  verticalAccuracy: verticalAccuracy,
-                                  course: course,
-                                  speed: speed,
-                                  timestamp: timestamp)
 
+        var location = CLLocation(coordinate: coordinateWrapper.coordinate,
+                              altitude: altitude,
+                              horizontalAccuracy: horizontalAccuracy,
+                              verticalAccuracy: verticalAccuracy,
+                              course: course,
+                              courseAccuracy: courseAccuracy,
+                              speed: speed,
+                              speedAccuracy: speedAccuracy,
+                              timestamp: timestamp)
+        
         if #available(iOS 15.0, watchOS 8.0, tvOS 15.0, macOS 12.0, *) {
-            let courseAccuracy = try container.decode(CLLocationDirectionAccuracy.self, forKey: .courseAccuracy)
-            let speedAccuracy = try container.decode(CLLocationSpeedAccuracy.self, forKey: .speedAccuracy)
             let sourceInfoWrapper = try? container.decode(CLLocationSourceInformationWrapper.self, forKey: .sourceInformation)
             
             if let sourceInfoWrapper = sourceInfoWrapper {
-                location = CLLocation(coordinate: coordinateWrapper.cooridnate,
+                location = CLLocation(coordinate: coordinateWrapper.coordinate,
                                       altitude: altitude,
                                       horizontalAccuracy: horizontalAccuracy,
                                       verticalAccuracy: verticalAccuracy,
@@ -43,19 +46,6 @@ public struct CLLocationWrapper: Codable, Equatable {
                                       timestamp: timestamp,
                                       sourceInfo: sourceInfoWrapper.sourceInfo)
             }
-        } else if #available(iOS 13.4, watchOS 6.2, tvOS 13.4, macOS 10.15.4, *) {
-            let courseAccuracy = try container.decode(CLLocationDirectionAccuracy.self, forKey: .courseAccuracy)
-            let speedAccuracy = try container.decode(CLLocationSpeedAccuracy.self, forKey: .speedAccuracy)
-
-            location = CLLocation(coordinate: coordinateWrapper.cooridnate,
-                                  altitude: altitude,
-                                  horizontalAccuracy: horizontalAccuracy,
-                                  verticalAccuracy: verticalAccuracy,
-                                  course: course,
-                                  courseAccuracy: courseAccuracy,
-                                  speed: speed,
-                                  speedAccuracy: speedAccuracy,
-                                  timestamp: timestamp)
         }
         self.init(location: location)
     }

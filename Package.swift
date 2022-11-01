@@ -1,10 +1,10 @@
-// swift-tools-version: 5.6
+// swift-tools-version: 5.7
 import PackageDescription
 
 let package = Package(
     name: "CLLocationWrapper",
     platforms: [
-        .iOS(.v10), .watchOS(.v3), .macOS(.v10_15), .tvOS(.v10),
+        .iOS(.v14), .watchOS(.v8), .macOS(.v12), .tvOS(.v14),
     ],
     products: [
         .library(name: "CLLocationWrapper", targets: ["CLLocationWrapper"]),

@@ -25,7 +25,7 @@ final class CLLocationWrapperTests: XCTestCase {
                                   timestamp: Date(),
                                   sourceInfo: CLLocationSourceInformation(softwareSimulationState: true,
                                                                           andExternalAccessoryState: false))
-        } else if #available(iOS 13.4, tvOS 13.4, *) {
+        } else {
             location = CLLocation(coordinate: CLLocationCoordinate2D(latitude: 16.6, longitude: 12.5),
                                   altitude: 2.6,
                                   horizontalAccuracy: 1.8,
@@ -35,15 +35,7 @@ final class CLLocationWrapperTests: XCTestCase {
                                   speed: 1.5,
                                   speedAccuracy: 0,
                                   timestamp: Date())
-        } else {
-            location = CLLocation(coordinate: CLLocationCoordinate2D(latitude: 16.6, longitude: 12.5),
-                                  altitude: 2.6,
-                                  horizontalAccuracy: 1.8,
-                                  verticalAccuracy: 9,
-                                  course: 46.891,
-                                  speed: 1.5,
-                                  timestamp: Date())
-        }
+        } 
         let locationWrapper = CLLocationWrapper(location: location)
         XCTAssertNotNil(locationWrapper.location)
        

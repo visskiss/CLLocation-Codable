@@ -33,7 +33,9 @@ extension CLLocation: Encodable {
             lhs.verticalAccuracy == rhs.verticalAccuracy &&
             lhs.course == rhs.course &&
             lhs.speed == rhs.speed &&
-            lhs.timestamp == rhs.timestamp
+            lhs.timestamp == rhs.timestamp &&
+            lhs.courseAccuracy == rhs.courseAccuracy &&
+            lhs.speedAccuracy == rhs.speedAccuracy
         
         if #available(iOS 15.0, watchOS 8.0, tvOS 15.0, macOS 12.0, *) {
             let moreParams = isBasicParamsEqual &&
@@ -50,12 +52,7 @@ extension CLLocation: Encodable {
             } else {
                 return false
             }
-        } else if #available(iOS 13.4, watchOS 6.2, tvOS 13.4, macOS 10.15.4, *) {
-            return isBasicParamsEqual &&
-                lhs.courseAccuracy == rhs.courseAccuracy &&
-                lhs.speedAccuracy == rhs.speedAccuracy
-        } else {
-            return isBasicParamsEqual
         }
+        return isBasicParamsEqual
     }
 }
