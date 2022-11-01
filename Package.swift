@@ -4,7 +4,7 @@ import PackageDescription
 let package = Package(
     name: "CLLocationWrapper",
     platforms: [
-        .iOS(.v14), .watchOS(.v8), .macOS(.v12), .tvOS(.v14),
+        .iOS(.v15), .watchOS(.v8), .macOS(.v12), .tvOS(.v15),
     ],
     products: [
         .library(name: "CLLocationWrapper", targets: ["CLLocationWrapper"]),

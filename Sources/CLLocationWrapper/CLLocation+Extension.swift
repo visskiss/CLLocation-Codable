@@ -14,16 +14,10 @@ extension CLLocation: Encodable {
         try container.encode(speed, forKey: .speed)
         try container.encode(course, forKey: .course)
         try container.encode(timestamp, forKey: .timestamp)
-        if #available(iOS 10.0, watchOS 3.0, tvOS 10.0, macOS 10.15, *) {
-            try container.encode(speedAccuracy, forKey: .speedAccuracy)
-        }
-        if #available(iOS 13.4, watchOS 6.2, tvOS 13.4, macOS 10.15.4, *) {
-            try container.encode(courseAccuracy, forKey: .courseAccuracy)
-            try container.encode(courseAccuracy, forKey: .sourceInformation)
-        }
-        if #available(iOS 15.0, watchOS 8.0, tvOS 15.0, macOS 12.0, *) {
-            try container.encode(sourceInformation, forKey: .sourceInformation)
-        }
+        try container.encode(speedAccuracy, forKey: .speedAccuracy)
+        try container.encode(courseAccuracy, forKey: .courseAccuracy)
+        try container.encode(courseAccuracy, forKey: .sourceInformation)
+        try container.encode(sourceInformation, forKey: .sourceInformation)
     }
     
     static func == (lhs: CLLocation, rhs: CLLocation) -> Bool {
@@ -35,24 +29,19 @@ extension CLLocation: Encodable {
             lhs.speed == rhs.speed &&
             lhs.timestamp == rhs.timestamp &&
             lhs.courseAccuracy == rhs.courseAccuracy &&
+            lhs.speedAccuracy == rhs.speedAccuracy &&
+            lhs.courseAccuracy == rhs.courseAccuracy &&
             lhs.speedAccuracy == rhs.speedAccuracy
         
-        if #available(iOS 15.0, watchOS 8.0, tvOS 15.0, macOS 12.0, *) {
-            let moreParams = isBasicParamsEqual &&
-                lhs.courseAccuracy == rhs.courseAccuracy &&
-                lhs.speedAccuracy == rhs.speedAccuracy
-            
             if let leftSourceInformation = lhs.sourceInformation,
                let rightSourceInformation = rhs.sourceInformation,
                leftSourceInformation == rightSourceInformation {
-                return moreParams
+                return isBasicParamsEqual
             } else if lhs.sourceInformation == nil,
                       rhs.sourceInformation == nil {
-                return moreParams
-            } else {
-                return false
+                return isBasicParamsEqual
             }
-        }
-        return isBasicParamsEqual
+            return false
+            
     }
 }

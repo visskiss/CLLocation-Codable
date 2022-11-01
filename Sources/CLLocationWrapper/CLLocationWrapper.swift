@@ -19,34 +19,21 @@ public struct CLLocationWrapper: Decodable, Equatable {
         let timestamp = try container.decode(Date.self, forKey: .timestamp)
         let courseAccuracy = try container.decode(CLLocationDirectionAccuracy.self, forKey: .courseAccuracy)
         let speedAccuracy = try container.decode(CLLocationSpeedAccuracy.self, forKey: .speedAccuracy)
+        let sourceInfoWrapper = try container.decode(CLLocationSourceInformationWrapper.self, forKey: .sourceInformation)
 
 
-        var location = CLLocation(coordinate: coordinateWrapper.coordinate,
-                              altitude: altitude,
-                              horizontalAccuracy: horizontalAccuracy,
-                              verticalAccuracy: verticalAccuracy,
-                              course: course,
-                              courseAccuracy: courseAccuracy,
-                              speed: speed,
-                              speedAccuracy: speedAccuracy,
-                              timestamp: timestamp)
+        let  location = CLLocation(coordinate: coordinateWrapper.coordinate,
+                                   altitude: altitude,
+                                   horizontalAccuracy: horizontalAccuracy,
+                                   verticalAccuracy: verticalAccuracy,
+                                   course: course,
+                                   courseAccuracy: courseAccuracy,
+                                   speed: speed,
+                                   speedAccuracy: speedAccuracy,
+                                   timestamp: timestamp,
+                                   sourceInfo: sourceInfoWrapper.sourceInfo)
         
-        if #available(iOS 15.0, watchOS 8.0, tvOS 15.0, macOS 12.0, *) {
-            let sourceInfoWrapper = try? container.decode(CLLocationSourceInformationWrapper.self, forKey: .sourceInformation)
-            
-            if let sourceInfoWrapper = sourceInfoWrapper {
-                location = CLLocation(coordinate: coordinateWrapper.coordinate,
-                                      altitude: altitude,
-                                      horizontalAccuracy: horizontalAccuracy,
-                                      verticalAccuracy: verticalAccuracy,
-                                      course: course,
-                                      courseAccuracy: courseAccuracy,
-                                      speed: speed,
-                                      speedAccuracy: speedAccuracy,
-                                      timestamp: timestamp,
-                                      sourceInfo: sourceInfoWrapper.sourceInfo)
-            }
-        }
+      
         self.init(location: location)
     }
     
