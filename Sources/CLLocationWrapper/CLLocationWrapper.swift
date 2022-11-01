@@ -1,6 +1,6 @@
 import CoreLocation
 
-public struct CLLocationWrapper: Codable, Equatable {
+public struct CLLocationWrapper: Decodable, Equatable {
     public var location: CLLocation
     
     public init(location: CLLocation) {
