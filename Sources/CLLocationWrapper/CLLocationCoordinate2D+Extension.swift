@@ -1,6 +1,6 @@
 import CoreLocation
 
-extension CLLocationCoordinate2D: Encodable {
+extension CLLocationCoordinate2D: @retroactive Encodable {
 
     enum CodingKeys: String, CodingKey {
         case latitude, longitude
