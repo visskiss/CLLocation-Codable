@@ -1,4 +1,4 @@
-[![Swift 5.7](https://img.shields.io/badge/Swift-5.6-orange.svg?style=flat)](https://developer.apple.com/swift)
+[![Swift 5.9](https://img.shields.io/badge/Swift-5.9-orange.svg?style=flat)](https://developer.apple.com/swift)
 [[Platforms](https://img.shields.io/badge/Platforms-iOS_|_iPadOS_|_macOS_|_Mac_Catalyst_|_tvOS_|_watchOS-green?style=flat)](https://www.apple.com/ios/ios-15/)
 [![Swift Package Index](https://img.shields.io/badge/Swift_Package_Index-compatible-blueviolet?style=flat)](https://github.com/yonivav/CLLocation-Codable)
 [![Swift Package Manager](https://img.shields.io/badge/Swift_Package_Manager-compatible-brown?style=flat)](https://www.swift.org/package-manager/)
@@ -54,11 +54,13 @@ do {
 
 And how to decode it?
 
-Very simple, but don't forget to unwrap:
+Very simple, but don't forget to unwrap. Because you are actually decoding the *wrapper* you have to use the `location` property of the `CLLocationWrapper` that you decode:
 ```swift
 let jsonDecoder = JSONDecoder()
 do {
+    // decode the CLLocationWrapper
     let decodedLocationWrapper = try jsonDecoder.decode(CLLocationWrapper.self, from: encodedLocation)
+    // use the location property to create the location
     let location = decodedLocationWrapper.location
     // Do whatever you want with the wrapped location
 } catch {
