@@ -1,6 +1,6 @@
 import CoreLocation
 
-extension CLLocation: Encodable {
+extension CLLocation: @retroactive Encodable {
     internal enum CodingKeys: String, CodingKey {
         case coordinate, altitude, horizontalAccuracy, verticalAccuracy, speed, course, timestamp, speedAccuracy, courseAccuracy, sourceInformation
     }
