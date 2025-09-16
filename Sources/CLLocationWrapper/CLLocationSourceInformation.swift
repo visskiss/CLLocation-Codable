@@ -1,7 +1,7 @@
 import CoreLocation
 
 
-extension CLLocationSourceInformation: Encodable {
+extension CLLocationSourceInformation: @retroactive Encodable {
 
     enum CodingKeys: String, CodingKey {
         case isSimulatedBySoftware, isProducedByAccessory
